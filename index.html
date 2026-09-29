@@ -61,6 +61,27 @@
   .card p { color: var(--color-muted-fg); font-size: 14px; }
   .card .meta { margin-top: auto; font-size: 13px; color: var(--color-accent); }
   footer { margin-top: 48px; color: var(--color-muted-fg); font-size: 13px; }
+  .actions { display: flex; gap: 12px; margin-top: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+  .btn svg { width: 16px; height: 16px; flex: none; }
+  .btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .btn-outline {
+    color: var(--color-foreground);
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+  }
+  .btn-outline:hover { border-color: var(--color-muted-fg); }
+  .btn-star {
+    color: #0F172A;
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+  }
+  .btn-star:hover { background: #16A34A; border-color: #16A34A; }
   @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) {
     .card { transition: none; }
@@ -95,6 +116,20 @@
       <span class="meta">打开 kimi_html/kimi.html →</span>
     </a>
   </main>
+  <div class="actions">
+    <a class="btn btn-outline" href="https://github.com/goehou/agent_java_offer" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.35.77 1.05.77 2.12 0 1.53-.01 2.76-.01 3.14 0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+      </svg>
+      仓库地址
+    </a>
+    <a class="btn btn-star" href="https://github.com/goehou/agent_java_offer" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01Z"/>
+      </svg>
+      去 Star
+    </a>
+  </div>
   <footer>纯离线 · 相对路径链接 · file:// 双击可用</footer>
 </body>
 </html>
