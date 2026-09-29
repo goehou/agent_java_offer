@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Offer · 入口汇总</title>
+<style>
+  :root {
+    --color-primary: #1E293B;
+    --color-on-primary: #FFFFFF;
+    --color-accent: #22C55E;
+    --color-background: #0F172A;
+    --color-foreground: #F8FAFC;
+    --color-muted: #272F42;
+    --color-muted-fg: #94A3B8;
+    --color-border: #475569;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font: 16px/1.5 Inter, system-ui, "Segoe UI", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+  }
+  header { text-align: center; max-width: 640px; }
+  header h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+  header p { color: var(--color-muted-fg); margin-top: 8px; font-size: 15px; }
+  main {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 400px));
+    gap: 24px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 880px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(34, 197, 94, .15);
+  }
+  .card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .card h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .card svg { width: 20px; height: 20px; stroke: var(--color-accent); flex: none; }
+  .card p { color: var(--color-muted-fg); font-size: 14px; }
+  .card .meta { margin-top: auto; font-size: 13px; color: var(--color-accent); }
+  footer { margin-top: 48px; color: var(--color-muted-fg); font-size: 13px; }
+  @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    .card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Agent Offer · 入口汇总</h1>
+    <p>同一份 docs/interview_prep 面试复习资料的两个生成版本</p>
+  </header>
+  <main>
+    <a class="card" href="tools/viewer/index.html">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+        </svg>
+        Claude 版 · 单文件可视化
+      </h2>
+      <p>全部资料打包进一个 HTML：总览、知识地图、卡片练习、全文搜索、复习路线图，单页内切换。</p>
+      <span class="meta">打开 tools/viewer/index.html →</span>
+    </a>
+    <a class="card" href="kimi_html/kimi.html">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m12 2 10 5-10 5L2 7Z"/><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/>
+        </svg>
+        Kimi K3 版 · 多页静态站点
+      </h2>
+      <p>按目录层级生成的 52 个章节页面，带阅读进度与章节过滤，适合逐章学习。</p>
+      <span class="meta">打开 kimi_html/kimi.html →</span>
+    </a>
+  </main>
+  <footer>纯离线 · 相对路径链接 · file:// 双击可用</footer>
+</body>
+</html>
