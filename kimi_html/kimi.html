@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Offer · Kimi 教程</title>
+<script>(function(){var t=null;try{t=localStorage.getItem('kimi-theme');}catch(e){}if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);})();</script>
+<style>
+:root{
+  --bg:#f7f8fa; --panel:#ffffff; --text:#1f2328; --muted:#6b7280;
+  --border:#e5e7eb; --code-bg:#f5f5f0; --link:#2563eb; --accent:#8b5cf6;
+  --quote-bg:#f1f5f9; --quote-border:#cbd5e1;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+}
+html[data-theme="dark"]{
+  --bg:#0f1115; --panel:#181b22; --text:#e6e8eb; --muted:#9aa1ab;
+  --border:#2b3038; --code-bg:#282828; --link:#7aa2f7;
+  --quote-bg:#1e2430; --quote-border:#374151;
+  --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+  "Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.page{max-width:1200px;margin:0 auto;padding:0 20px 60px}
+#obar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;
+  padding:12px 0;background:var(--bg)}
+#obar h1{margin:0;font-size:18px;flex:1}
+#obar button{cursor:pointer;font-size:13px;color:var(--text);background:transparent;
+  border:1px solid var(--border);border-radius:6px;padding:4px 12px;
+  transition:transform .1s ease,border-color .15s}
+#obar button:hover{border-color:var(--muted)}
+#obar button:active{transform:scale(.96)}
+.hero{background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  padding:28px 32px;margin:8px 0 24px;box-shadow:var(--shadow)}
+.hero h2{margin:0 0 6px;font-size:26px}
+.hero .sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.hero .stats{display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:var(--muted);
+  margin-bottom:14px}
+.hero .stats b{color:var(--text);font-size:18px;margin-right:4px}
+.bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3b82f6,#22c55e);
+  border-radius:4px;transition:width .5s}
+.hero .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:8px 18px;border-radius:8px;font-size:14px;
+  background:#3b82f6;color:#fff;border:none;cursor:pointer}
+.btn:hover{text-decoration:none;background:#2563eb}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn.ghost:hover{color:var(--text);background:transparent}
+#filter{width:100%;margin:0 0 20px;padding:10px 14px;font-size:15px;
+  color:var(--text);background:var(--panel);border:1px solid var(--border);
+  border-radius:8px;outline:none}
+#filter:focus{border-color:#3b82f6}
+.dir-group{margin-bottom:28px}
+.dir-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dir-head .dot{width:12px;height:12px;border-radius:3px}
+.dir-head h3{margin:0;font-size:17px}
+.dir-head .cnt{font-size:12px;color:var(--muted)}
+.dir-head .mini{flex:1;max-width:220px;margin-left:auto}
+.dir-head .mini .bar{height:5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{display:block;background:var(--panel);border:1px solid var(--border);
+  border-left:4px solid var(--c,#888);border-radius:8px;padding:12px 16px;
+  color:var(--text);box-shadow:var(--shadow);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.card:hover{text-decoration:none;border-color:var(--c,#888);
+  transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.14)}
+html[data-theme="dark"] .card:hover{box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.card.aced{border-color:#eab308;
+  box-shadow:0 0 0 1px rgba(234,179,8,.35),0 2px 10px rgba(234,179,8,.18)}
+.card.aced:hover{box-shadow:0 0 0 1px rgba(234,179,8,.5),0 6px 18px rgba(234,179,8,.28)}
+.card .t{font-size:14.5px;font-weight:600;margin-bottom:6px;
+  display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.card .t .done{color:#16a34a;flex:none;font-size:13px}
+.card .t .trophy{flex:none;font-size:15px}
+.card .m{font-size:12px;color:var(--muted)}
+.card .m2{font-size:12px;color:#16a34a;margin-top:3px}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:200}
+.hidden{display:none !important}
+@media (prefers-reduced-motion:reduce){
+  .card{transition:none}
+  .card:hover{transform:none}
+  .bar>i{transition:none !important}
+  #obar button{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <div id="obar">
+    <h1>Agent Offer · Kimi 教程</h1>
+    <button id="clear-btn" type="button">清除阅读记录</button>
+    <button id="theme-btn" type="button" aria-label="切换主题"></button>
+  </div>
+  <section class="hero">
+    <h2>面试复习总览</h2>
+    <p class="sub">Agent Offer 面试资料静态教程站 · 纯离线 · 双击即用</p>
+    <div class="stats">
+      <span><b id="stat-count">52</b>章节</span>
+      <span><b id="stat-total">183,698</b>总字数</span>
+      <span>已读 <b id="stat-read">0</b> / 52</span>
+    </div>
+    <div class="bar"><i id="all-bar"></i></div>
+    <div class="actions"><a id="continue-btn" class="btn" href="#">继续学习</a></div>
+  </section>
+  <input id="filter" type="search" placeholder="按章节标题过滤…">
+  <div id="groups"></div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var DATA = {"directions": [{"key": "00_导航", "label": "导航", "color": "#64748b"}, {"key": "01_AI", "label": "AI", "color": "#3b82f6"}, {"key": "02_后端", "label": "后端", "color": "#f97316"}, {"key": "03_系统设计", "label": "系统设计", "color": "#22c55e"}, {"key": "04_算法", "label": "算法", "color": "#eab308"}, {"key": "05_项目表达", "label": "项目表达", "color": "#ec4899"}, {"key": "", "label": "资料总入口", "color": "#8b5cf6"}], "chapters": [{"path": "00_导航/README.html", "title": "00_导航", "dir": "00_导航", "chars": 1368, "chars_fmt": "1,368", "minutes": 3, "qas": 7}, {"path": "00_导航/复习路线图.html", "title": "复习路线图", "dir": "00_导航", "chars": 484, "chars_fmt": "484", "minutes": 1, "qas": 6}, {"path": "00_导航/总索引.html", "title": "总索引", "dir": "00_导航", "chars": 899, "chars_fmt": "899", "minutes": 2, "qas": 5}, {"path": "01_AI/01_Agent基础/01_核心问答.html", "title": "01_Agent基础核心问答", "dir": "01_AI", "chars": 3152, "chars_fmt": "3,152", "minutes": 6, "qas": 6}, {"path": "01_AI/02_Workflow与多Agent/01_核心问答.html", "title": "02_Workflow与多Agent核心问答", "dir": "01_AI", "chars": 9182, "chars_fmt": "9,182", "minutes": 18, "qas": 8}, {"path": "01_AI/03_RAG/01_核心问答.html", "title": "03_RAG核心问答", "dir": "01_AI", "chars": 17172, "chars_fmt": "17,172", "minutes": 34, "qas": 11}, {"path": "01_AI/04_上下文工程与记忆/01_核心问答.html", "title": "04_上下文工程与记忆核心问答", "dir": "01_AI", "chars": 7926, "chars_fmt": "7,926", "minutes": 16, "qas": 8}, {"path": "01_AI/05_模型调优与微调/01_核心问答.html", "title": "05_模型调优与微调核心问答", "dir": "01_AI", "chars": 4568, "chars_fmt": "4,568", "minutes": 9, "qas": 6}, {"path": "01_AI/06_评测与监控/01_核心问答.html", "title": "06_评测与监控核心问答", "dir": "01_AI", "chars": 8354, "chars_fmt": "8,354", "minutes": 17, "qas": 5}, {"path": "01_AI/07_安全与风控/01_核心问答.html", "title": "07_安全与风控核心问答", "dir": "01_AI", "chars": 2347, "chars_fmt": "2,347", "minutes": 5, "qas": 3}, {"path": "01_AI/08_框架协议与工程化/01_核心问答.html", "title": "08_框架协议与工程化核心问答", "dir": "01_AI", "chars": 13632, "chars_fmt": "13,632", "minutes": 27, "qas": 16}, {"path": "01_AI/09_追加补充/01_核心问答.html", "title": "01_核心问答", "dir": "01_AI", "chars": 3042, "chars_fmt": "3,042", "minutes": 6, "qas": 4}, {"path": "01_AI/README.html", "title": "01_AI", "dir": "01_AI", "chars": 465, "chars_fmt": "465", "minutes": 1, "qas": 2}, {"path": "02_后端/01_MySQL/01_核心问答.html", "title": "MySQL核心问答", "dir": "02_后端", "chars": 6212, "chars_fmt": "6,212", "minutes": 12, "qas": 5}, {"path": "02_后端/02_Redis/01_核心问答.html", "title": "Redis核心问答", "dir": "02_后端", "chars": 4820, "chars_fmt": "4,820", "minutes": 10, "qas": 5}, {"path": "02_后端/03_Kafka/01_核心问答.html", "title": "Kafka与MQ核心问答", "dir": "02_后端", "chars": 2981, "chars_fmt": "2,981", "minutes": 6, "qas": 4}, {"path": "02_后端/04_并发与异步任务/01_核心问答.html", "title": "并发与异步任务核心问答", "dir": "02_后端", "chars": 5340, "chars_fmt": "5,340", "minutes": 11, "qas": 4}, {"path": "02_后端/05_缓存与一致性/01_核心问答.html", "title": "缓存与一致性核心问答", "dir": "02_后端", "chars": 4081, "chars_fmt": "4,081", "minutes": 8, "qas": 8}, {"path": "02_后端/06_分库分表与架构治理/01_核心问答.html", "title": "分库分表与数据治理核心问答", "dir": "02_后端", "chars": 2120, "chars_fmt": "2,120", "minutes": 4, "qas": 5}, {"path": "02_后端/07_JVM与GC/01_核心问答.html", "title": "JVM与GC核心问答", "dir": "02_后端", "chars": 5913, "chars_fmt": "5,913", "minutes": 12, "qas": 5}, {"path": "02_后端/08_Spring与SpringBoot/01_核心问答.html", "title": "Spring与Spring Boot核心问答", "dir": "02_后端", "chars": 7198, "chars_fmt": "7,198", "minutes": 14, "qas": 3}, {"path": "02_后端/09_RPC与网关治理/01_核心问答.html", "title": "RPC与网关治理核心问答", "dir": "02_后端", "chars": 6600, "chars_fmt": "6,600", "minutes": 13, "qas": 11}, {"path": "02_后端/10_网络I_O与发布治理/01_核心问答.html", "title": "网络I/O与发布治理核心问答", "dir": "02_后端", "chars": 3170, "chars_fmt": "3,170", "minutes": 6, "qas": 6}, {"path": "02_后端/11_分布式事务与高可用/01_核心问答.html", "title": "分布式事务与高可用核心问答", "dir": "02_后端", "chars": 4863, "chars_fmt": "4,863", "minutes": 10, "qas": 7}, {"path": "02_后端/README.html", "title": "02_后端", "dir": "02_后端", "chars": 597, "chars_fmt": "597", "minutes": 1, "qas": 2}, {"path": "03_系统设计/00_方法论与估算/01_核心问答.html", "title": "00_方法论与估算核心问答", "dir": "03_系统设计", "chars": 365, "chars_fmt": "365", "minutes": 1, "qas": 2}, {"path": "03_系统设计/01_高并发系统/01_核心问答.html", "title": "01_高并发系统核心问答", "dir": "03_系统设计", "chars": 2395, "chars_fmt": "2,395", "minutes": 5, "qas": 4}, {"path": "03_系统设计/02_缓存与KV系统/01_核心问答.html", "title": "02_缓存与KV系统核心问答", "dir": "03_系统设计", "chars": 1183, "chars_fmt": "1,183", "minutes": 2, "qas": 2}, {"path": "03_系统设计/03_消息队列与监控告警/01_核心问答.html", "title": "03_消息队列与监控告警核心问答", "dir": "03_系统设计", "chars": 1443, "chars_fmt": "1,443", "minutes": 3, "qas": 3}, {"path": "03_系统设计/04_搜索推荐与聊天/01_核心问答.html", "title": "04_搜索推荐与聊天核心问答", "dir": "03_系统设计", "chars": 5449, "chars_fmt": "5,449", "minutes": 11, "qas": 5}, {"path": "03_系统设计/05_交易与风控/01_核心问答.html", "title": "05_交易与风控核心问答", "dir": "03_系统设计", "chars": 1578, "chars_fmt": "1,578", "minutes": 3, "qas": 2}, {"path": "03_系统设计/06_增长与邀请码系统/01_核心问答.html", "title": "06_增长与邀请码系统核心问答", "dir": "03_系统设计", "chars": 2753, "chars_fmt": "2,753", "minutes": 6, "qas": 3}, {"path": "03_系统设计/07_地图与大规模存储/01_核心问答.html", "title": "07_地图与大规模存储核心问答", "dir": "03_系统设计", "chars": 911, "chars_fmt": "911", "minutes": 2, "qas": 2}, {"path": "03_系统设计/08_分布式与算法补强/01_核心问答.html", "title": "08_分布式与算法补强核心问答", "dir": "03_系统设计", "chars": 579, "chars_fmt": "579", "minutes": 1, "qas": 3}, {"path": "03_系统设计/README.html", "title": "03_系统设计", "dir": "03_系统设计", "chars": 449, "chars_fmt": "449", "minutes": 1, "qas": 2}, {"path": "04_算法/01_数组与双指针/01_核心问答.html", "title": "01_数组与双指针核心问答", "dir": "04_算法", "chars": 444, "chars_fmt": "444", "minutes": 1, "qas": 2}, {"path": "04_算法/02_滑动窗口/01_核心问答.html", "title": "02_滑动窗口核心问答", "dir": "04_算法", "chars": 296, "chars_fmt": "296", "minutes": 1, "qas": 2}, {"path": "04_算法/03_链表/01_核心问答.html", "title": "03_链表核心问答", "dir": "04_算法", "chars": 312, "chars_fmt": "312", "minutes": 1, "qas": 2}, {"path": "04_算法/04_二叉树/01_核心问答.html", "title": "04_二叉树核心问答", "dir": "04_算法", "chars": 473, "chars_fmt": "473", "minutes": 1, "qas": 2}, {"path": "04_算法/05_动态规划/01_核心问答.html", "title": "05_动态规划核心问答", "dir": "04_算法", "chars": 307, "chars_fmt": "307", "minutes": 1, "qas": 2}, {"path": "04_算法/06_回溯与搜索/01_核心问答.html", "title": "06_回溯与搜索核心问答", "dir": "04_算法", "chars": 255, "chars_fmt": "255", "minutes": 1, "qas": 2}, {"path": "04_算法/07_堆栈队列二分/01_核心问答.html", "title": "07_堆栈队列二分核心问答", "dir": "04_算法", "chars": 471, "chars_fmt": "471", "minutes": 1, "qas": 2}, {"path": "04_算法/README.html", "title": "04_算法", "dir": "04_算法", "chars": 382, "chars_fmt": "382", "minutes": 1, "qas": 2}, {"path": "05_项目表达/01_AI应用平台/01_核心问答.html", "title": "01_AI应用平台核心问答", "dir": "05_项目表达", "chars": 4209, "chars_fmt": "4,209", "minutes": 8, "qas": 2}, {"path": "05_项目表达/02_交易Agent与风控平台/01_核心问答.html", "title": "02_交易Agent与风控平台核心问答", "dir": "05_项目表达", "chars": 7036, "chars_fmt": "7,036", "minutes": 14, "qas": 3}, {"path": "05_项目表达/03_垂直写作与审阅平台/01_核心问答.html", "title": "03_垂直写作与审阅平台核心问答", "dir": "05_项目表达", "chars": 8032, "chars_fmt": "8,032", "minutes": 16, "qas": 14}, {"path": "05_项目表达/04_搜索推荐平台/01_核心问答.html", "title": "04_搜索推荐平台核心问答", "dir": "05_项目表达", "chars": 6202, "chars_fmt": "6,202", "minutes": 12, "qas": 2}, {"path": "05_项目表达/05_大模型应用平台/01_核心问答.html", "title": "05_大模型应用平台核心问答", "dir": "05_项目表达", "chars": 1854, "chars_fmt": "1,854", "minutes": 4, "qas": 2}, {"path": "05_项目表达/06_AIGC内容平台/01_核心问答.html", "title": "06_AIGC内容平台核心问答", "dir": "05_项目表达", "chars": 5570, "chars_fmt": "5,570", "minutes": 11, "qas": 9}, {"path": "05_项目表达/07_综合场景题/01_核心问答.html", "title": "07_综合场景题核心问答", "dir": "05_项目表达", "chars": 908, "chars_fmt": "908", "minutes": 2, "qas": 2}, {"path": "05_项目表达/README.html", "title": "05_项目表达", "dir": "05_项目表达", "chars": 425, "chars_fmt": "425", "minutes": 1, "qas": 2}, {"path": "README.html", "title": "interview_prep", "dir": "", "chars": 2931, "chars_fmt": "2,931", "minutes": 6, "qas": 5}]};
+
+  /* 主题 */
+  var theme = document.documentElement.getAttribute('data-theme') || 'light';
+  var themeBtn = document.getElementById('theme-btn');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    if (themeBtn) themeBtn.textContent = (t === 'dark') ? '\u2600' : '\u263E';
+  }
+  applyTheme(theme);
+  if (themeBtn) themeBtn.addEventListener('click', function(){
+    theme = (theme === 'dark') ? 'light' : 'dark';
+    applyTheme(theme);
+    try { localStorage.setItem('kimi-theme', theme); } catch(e){}
+  });
+
+  /* 已读状态 */
+  function isRead(p){
+    try { return !!localStorage.getItem('kimi-read:' + p); } catch(e){ return false; }
+  }
+  var readCount = 0, firstUnread = null;
+  DATA.chapters.forEach(function(ch){
+    ch.read = isRead(ch.path);
+    if (ch.read) readCount++;
+    else if (!firstUnread) firstUnread = ch;
+  });
+
+  /* Hero 统计 count-up */
+  var reduced = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(el, target, fmt){
+    if (!el) return;
+    if (reduced || target <= 0) { el.textContent = fmt(target); return; }
+    var dur = 800, t0 = performance.now();
+    (function step(now){
+      var k = Math.min(1, (now - t0) / dur);
+      var e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(Math.round(target * e));
+      if (k < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target);
+    })(t0);
+  }
+  function fmtPlain(n){ return String(n); }
+  function fmtComma(n){ return n.toLocaleString('en-US'); }
+  var totalChars = 0;
+  DATA.chapters.forEach(function(c){ totalChars += c.chars; });
+  countUp(document.getElementById('stat-count'), DATA.chapters.length, fmtPlain);
+  countUp(document.getElementById('stat-total'), totalChars, fmtComma);
+  countUp(document.getElementById('stat-read'), readCount, fmtPlain);
+  requestAnimationFrame(function(){
+    document.getElementById('all-bar').style.width =
+      Math.round(readCount / DATA.chapters.length * 100) + '%';
+  });
+
+  var cont = document.getElementById('continue-btn');
+  if (firstUnread) {
+    cont.href = firstUnread.path;
+    cont.textContent = '\u7EE7\u7EED\u5B66\u4E60\uFF1A' + firstUnread.title;
+  } else {
+    cont.style.display = 'none';
+  }
+
+  /* 渲染方向分组 */
+  var host = document.getElementById('groups');
+  DATA.directions.forEach(function(dir){
+    var chs = DATA.chapters.filter(function(c){ return c.dir === dir.key; });
+    if (!chs.length) return;
+    var g = document.createElement('div');
+    g.className = 'dir-group';
+    g.setAttribute('data-dir', dir.key);
+    var dRead = chs.filter(function(c){ return c.read; }).length;
+    g.innerHTML =
+      '<div class="dir-head"><span class="dot" style="background:' + dir.color + '"></span>' +
+      '<h3>' + dir.label + '</h3>' +
+      '<span class="cnt">' + chs.length + ' \u7AE0 \u00B7 \u5DF2\u8BFB ' + dRead + '</span>' +
+      '<span class="mini"><span class="bar"><i class="anim-bar" data-w="' +
+        Math.round(dRead / chs.length * 100) + '" style="width:0;background:' + dir.color + '"></i></span></span>' +
+      '</div>';
+    var grid = document.createElement('div');
+    grid.className = 'grid';
+    chs.forEach(function(ch){
+      var a = document.createElement('a');
+      a.className = 'card';
+      a.href = ch.path;
+      a.style.setProperty('--c', dir.color);
+      a.setAttribute('data-title', (ch.title + ' ' + ch.path).toLowerCase());
+      /* 掌握度/奖杯 */
+      var markInfo = '';
+      var aced = false;
+      try {
+        var mk = JSON.parse(localStorage.getItem('kimi-mark:' + ch.path) || '{}') || {};
+        var known = 0, total = 0;
+        for (var k in mk) {
+          if (!Object.prototype.hasOwnProperty.call(mk, k)) continue;
+          total++;
+          if (mk[k] === 'known') known++;
+        }
+        if (total > 0 && ch.qas > 0) {
+          markInfo = '<div class="m2">\u4F1A\u4E86 ' + known + '/' + ch.qas + '</div>';
+        }
+        aced = !!localStorage.getItem('kimi-aced:' + ch.path);
+      } catch(e){}
+      if (aced) a.classList.add('aced');
+      a.innerHTML =
+        '<div class="t"><span>' + ch.title + '</span>' +
+        (aced ? '<span class="trophy">\uD83C\uDFC6</span>' :
+          (ch.read ? '<span class="done">\u2713 \u5DF2\u8BFB</span>' : '')) + '</div>' +
+        '<div class="m">' + ch.chars_fmt + ' \u5B57 \u00B7 \u7EA6 ' + ch.minutes + ' \u5206\u949F</div>' +
+        markInfo;
+      grid.appendChild(a);
+    });
+    g.appendChild(grid);
+    host.appendChild(g);
+  });
+
+  /* 方向进度条首次进入视口时从 0 动画到目标值 */
+  var bars = document.querySelectorAll('.anim-bar');
+  if (reduced || !('IntersectionObserver' in window)) {
+    bars.forEach(function(b){ b.style.width = b.getAttribute('data-w') + '%'; });
+  } else {
+    var bio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          en.target.style.width = en.target.getAttribute('data-w') + '%';
+          bio.unobserve(en.target);
+        }
+      });
+    }, {rootMargin: '0px 0px -30px 0px'});
+    bars.forEach(function(b){ bio.observe(b); });
+  }
+
+  /* 过滤 */
+  var input = document.getElementById('filter');
+  input.addEventListener('input', function(){
+    var q = input.value.trim().toLowerCase();
+    document.querySelectorAll('.dir-group').forEach(function(g){
+      var visible = 0;
+      g.querySelectorAll('.card').forEach(function(c){
+        var show = !q || c.getAttribute('data-title').indexOf(q) >= 0;
+        c.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      g.classList.toggle('hidden', visible === 0);
+    });
+  });
+
+  /* 清除阅读记录 */
+  document.getElementById('clear-btn').addEventListener('click', function(){
+    if (!window.confirm('\u786E\u5B9A\u6E05\u9664\u5168\u90E8\u9605\u8BFB\u8BB0\u5F55\uFF1F')) return;
+    try {
+      var keys = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.indexOf('kimi-read:') === 0) keys.push(k);
+      }
+      keys.forEach(function(k){ localStorage.removeItem(k); });
+    } catch(e){}
+    location.reload();
+  });
+
+  /* 全部读完的彩带庆祝 */
+  if (readCount === DATA.chapters.length && DATA.chapters.length > 0 && !reduced) {
+    var canvas = document.createElement('canvas');
+    canvas.id = 'confetti';
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var W, H;
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    var colors = ['#3b82f6', '#f97316', '#22c55e', '#eab308', '#ec4899', '#8b5cf6'];
+    var parts = [];
+    for (var i = 0; i < 160; i++) {
+      parts.push({
+        x: Math.random() * W,
+        y: -Math.random() * H,
+        w: 6 + Math.random() * 6,
+        h: 8 + Math.random() * 8,
+        vy: 2 + Math.random() * 3,
+        vx: -1 + Math.random() * 2,
+        rot: Math.random() * Math.PI,
+        vr: -0.1 + Math.random() * 0.2,
+        color: colors[i % colors.length]
+      });
+    }
+    var start = Date.now();
+    (function tick(){
+      ctx.clearRect(0, 0, W, H);
+      for (var j = 0; j < parts.length; j++) {
+        var p = parts[j];
+        p.y += p.vy; p.x += p.vx; p.rot += p.vr;
+        if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+      if (Date.now() - start < 3500) requestAnimationFrame(tick);
+      else canvas.remove();
+    })();
+  }
+})();
+</script>
+</body>
+</html>
